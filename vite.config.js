@@ -7,14 +7,25 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-    vueDevTools(),
-  ],
+  base: '/test-vueStream-zapping/',
+  plugins: [vue(), vueJsx(), vueDevTools()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://dev-alquinta.zappingtv.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/v1/web'),
+        secure: false,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      },
+    },
+  },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
 })

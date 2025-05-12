@@ -10,5 +10,14 @@
   "info_descripcion": "Informação",
   "pantalla_completa": "Tela cheia",
   "silento": "Mudo",
-  "salir": "Sair"
+  "salir": "Sair",
+  "titulo_original": "Independence Day",
+  "duracion": "Duração",
+  "clasificacion": "Classificação",
+  "generos": {
+    "ciencia_ficcion": "Ficção científica",
+    "accion": "Ação"
+  },
+  "descripcion_pelicula": "Os extraterrestres estão em camino é sua meta é invadir e destroir a Terra, Para lutar com tecnologia superior, a arma da humanidade é a vontade de viver.",
+  "anio": "Ano"
 }

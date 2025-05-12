@@ -56,10 +56,15 @@ const selectChannel = (channel) => {
 
 <style scoped lang="scss">
 .channel-list {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
   padding: 1rem;
   color: white;
   overflow-y: auto;
-  height: 100vh;
   scrollbar-width: none;
   -ms-overflow-style: none;
 
@@ -68,27 +73,54 @@ const selectChannel = (channel) => {
     background: transparent;
   }
 
-  @media (max-width: 767px) {
-    & {
-      height: calc(100vh - 60px);
-    }
-
-    ul {
-      width: 60%;
-      margin: 0.5rem;
-      gap: 0.5rem;
-    }
-
-    li {
-      padding: 16px;
-      font-size: 14px;
-
-      img {
-        width: 32px;
-      }
-    }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 400px; /* Ancho fijo para la lista */
   }
 
+  li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    span:first-child {
+      min-width: 30px;
+      text-align: center;
+    }
+
+    img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    span:last-child {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &.active {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.01);
+    }
+  }
   @media (min-width: 768px) {
     ul {
       width: 270px;
@@ -102,39 +134,6 @@ const selectChannel = (channel) => {
       img {
         width: 48px;
       }
-    }
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-  li {
-    background: transparent;
-    opacity: 0.6;
-    border-radius: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-    transition: background 0.2s;
-
-    &.active {
-      background: #444;
-      opacity: 1;
-      border: 1px solid #fff;
-    }
-
-    &:hover {
-      background: #333;
-    }
-
-    img {
-      height: auto;
     }
   }
 }

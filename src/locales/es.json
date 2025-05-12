@@ -10,5 +10,14 @@
   "info_descripcion": "Info",
   "pantalla_completa": "Pantalla completa",
   "silento": "Silencio",
-  "salir": "Salir"
+  "salir": "Salir",
+  "titulo_original": "Título original",
+  "duracion": "Duración",
+  "clasificacion": "Clasificación",
+  "generos": {
+    "ciencia_ficcion": "Ciencia ficción",
+    "accion": "Acción"
+  },
+  "descripcion_pelicula": "Los alienígenas están en camino y pretenden invadir y destruir la Tierra. Nuestra mejor arma es nuestra voluntad de vivir.",
+  "anio": "Año"
 }

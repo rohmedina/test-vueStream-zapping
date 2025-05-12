@@ -6,9 +6,11 @@
       class="video-element"
       @click="togglePlay"
       @timeupdate="onTimeUpdate"
+      v-show="!isChannelListVisible"
     ></video>
 
     <VideoControls
+      v-show="!isChannelListVisible"
       :current-channel="currentChannel"
       @togglePlay="togglePlay"
       @toggleMute="toggleMute"
@@ -35,6 +37,10 @@ defineProps({
   currentChannel: {
     type: Object,
     required: true,
+  },
+  isChannelListVisible: {
+    type: Boolean,
+    default: false,
   },
 })
 
@@ -84,15 +90,19 @@ const handleChannelDown = () => {
 
 <style scoped lang="scss">
 .video-player-container {
-  position: relative;
+  position: absolute;
   width: 100%;
-  height: 100%;
-  background-color: black;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   .video-element {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     display: block;
+    background: transparent;
   }
 }
 </style>

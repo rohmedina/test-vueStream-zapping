@@ -52,7 +52,7 @@ defineProps({
   justify-content: space-between;
   background-color: #000;
   color: white;
-  padding: 1rem;
+  padding: 1rem 1rem 3rem 1rem;
 
   .main-buttons {
     display: flex;
