@@ -59,27 +59,19 @@ const selectChannel = (channel) => {
   padding: 1rem;
   color: white;
   overflow-y: auto;
+  height: 100vh;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
-  @media (min-width: 768px) {
-    height: 100vh;
-
-    ul {
-      width: 270px;
-      margin: 1rem 2rem;
-    }
-
-    li {
-      padding: 24px 32px;
-      margin-bottom: 8px;
-
-      img {
-        width: 48px;
-      }
-    }
+  &::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
   }
 
   @media (max-width: 767px) {
-    height: calc(100vh - 60px);
+    & {
+      height: calc(100vh - 60px);
+    }
 
     ul {
       width: 60%;
@@ -97,13 +89,21 @@ const selectChannel = (channel) => {
     }
   }
 
-  &::-webkit-scrollbar {
-    width: 0;
-    background: transparent;
-  }
+  @media (min-width: 768px) {
+    ul {
+      width: 270px;
+      margin: 1rem 2rem;
+    }
 
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+    li {
+      padding: 24px 32px;
+      margin-bottom: 8px;
+
+      img {
+        width: 48px;
+      }
+    }
+  }
 
   ul {
     list-style: none;
