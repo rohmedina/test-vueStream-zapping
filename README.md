@@ -1,16 +1,37 @@
-# test-vueStream-zapping
+# Test Vue Stream Zapping
 
-This template should help get you started developing with Vue 3 in Vite.
+## Descripción
 
-## Recommended IDE Setup
+Una aplicación de streaming de video desarrollada con Vue 3 y Vite que permite a los usuarios ver y cambiar entre diferentes canales de transmisión, con soporte multilenguaje (Español y Portugués) y controles de reproducción avanzados.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Características Principales
 
-## Customize configuration
+- 🎥 Reproductor de video personalizado
+- 🔊 Control de volumen con interfaz visual
+- 🌐 Soporte multilenguaje (Español/Portugués)
+- ⌨️ Atajos de teclado para navegación
+- 📺 Lista de canales con navegación
+- 🎮 Controles de reproducción (play/pause)
+- 📱 Diseño responsive
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Tecnologías Utilizadas
 
-## Project Setup
+- Vue 3
+- Vue Router
+- Vue I18n
+- Vite
+- SASS
+- ESLint
+- Vitest
+
+## Requisitos Previos
+
+- Node.js (versión recomendada: última LTS)
+- npm (incluido con Node.js)
+
+## Configuración del Proyecto
+
+### Instalación
 
 ```sh
 npm install
@@ -39,3 +60,50 @@ npm run test:unit
 ```sh
 npm run lint
 ```
+
+## Estructura del Proyecto
+
+- /src/components/player/ : Componentes del reproductor de video
+- /src/components/common/ : Componentes comunes reutilizables
+- /src/composables/ : Composables de Vue (como useLanguage)
+- /src/assets/ : Recursos estáticos
+- /src/views/ : Vistas principales de la aplicación
+
+## Configuración IDE Recomendada
+
+- VSCode
+- Extensión Volar
+- Desactivar Vetur si está instalado
+
+## Características del Reproductor
+
+- Control de volumen visual con barra deslizante
+- Botón de silencio
+- Navegación entre canales
+- Vista de detalles del canal
+- Persistencia del último canal seleccionado
+- Controles de reproducción intuitivos
+
+## Internacionalización
+
+La aplicación soporta múltiples idiomas:
+
+- 🇪🇸 Español (por defecto)
+- 🇧🇷 Portugués
+  La preferencia de idioma se guarda automáticamente en localStorage.
+
+## Atajos de Teclado
+
+- ⬆️ Canal siguiente
+- ⬇️ Canal anterior
+- ➡️ Mostrar/ocultar lista de canales
+
+## Persistencia de Datos
+
+- Último canal seleccionado
+- Preferencia de idioma
+- Configuración de volumen
+
+## Licencia
+
+Proyecto privado - Todos los derechos reservados

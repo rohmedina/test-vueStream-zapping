@@ -1,0 +1,30 @@
+// Estilos de botones circulares
+.circle-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #222;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    background-color: #333;
+  }
+}
+
+// Estilos de botones básicos
+.base-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
