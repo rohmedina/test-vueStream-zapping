@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   &:hover {
     background-color: #333;
   }
@@ -23,8 +23,12 @@
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  
+
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
+}
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
 }

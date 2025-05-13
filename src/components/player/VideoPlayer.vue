@@ -1,31 +1,8 @@
-<template>
-  <div class="video-player-container" @mouseenter="showTopBar" @mouseleave="hideTopBar">
-    <video
-      ref="videoRef"
-      :src="src"
-      class="video-element"
-      @click="togglePlay"
-      @timeupdate="onTimeUpdate"
-      v-show="!isChannelListVisible"
-    ></video>
-
-    <VideoControls
-      v-show="!isChannelListVisible"
-      :current-channel="currentChannel"
-      @togglePlay="togglePlay"
-      @toggleMute="toggleMute"
-      @volumeChange="changeVolume"
-      @channel-up="handleChannelUp"
-      @channel-down="handleChannelDown"
-      @toggle-channels="() => emit('toggle-channels')"
-      @show-info="() => $router.push(`/details/${currentChannel.id}`)"
-    />
-  </div>
-</template>
-
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import VideoControls from './VideoControls.vue'
+import independenceDay from '@/assets/video/independence-Day.mp4'
+import independencePoster from '@/assets/image.png'
 
 const emit = defineEmits(['show-topbar', 'hide-topbar', 'change-channel', 'toggle-channels'])
 
@@ -44,7 +21,9 @@ defineProps({
   },
 })
 
+const showPoster = ref(true)
 const videoRef = ref(null)
+const posterImage = independencePoster
 
 const showTopBar = () => {
   emit('show-topbar')
@@ -60,6 +39,7 @@ const togglePlay = () => {
 
   if (video.paused) {
     video.play()
+    showPoster.value = false
   } else {
     video.pause()
   }
@@ -86,7 +66,44 @@ const handleChannelUp = () => {
 const handleChannelDown = () => {
   emit('change-channel', 'down')
 }
+
+const videoSrc = computed(() => {
+  return independenceDay
+})
 </script>
+
+<template>
+  <div class="video-player-container" @mouseenter="showTopBar" @mouseleave="hideTopBar">
+    <img
+      v-if="showPoster"
+      :src="posterImage"
+      class="video-poster"
+      @click="togglePlay"
+      alt="Poster"
+    />
+
+    <video
+      ref="videoRef"
+      :src="videoSrc"
+      class="video-element"
+      @click="togglePlay"
+      @timeupdate="onTimeUpdate"
+      v-show="!isChannelListVisible"
+    ></video>
+
+    <VideoControls
+      v-show="!isChannelListVisible"
+      :current-channel="currentChannel"
+      @togglePlay="togglePlay"
+      @toggleMute="toggleMute"
+      @volumeChange="changeVolume"
+      @channel-up="handleChannelUp"
+      @channel-down="handleChannelDown"
+      @toggle-channels="() => emit('toggle-channels')"
+      @show-info="() => $router.push(`/details/${currentChannel.id}`)"
+    />
+  </div>
+</template>
 
 <style scoped lang="scss">
 .video-player-container {
@@ -103,6 +120,15 @@ const handleChannelDown = () => {
     object-fit: cover;
     display: block;
     background: transparent;
+  }
+
+  .video-poster {
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    object-fit: cover;
+    z-index: 2;
+    cursor: pointer;
   }
 }
 </style>

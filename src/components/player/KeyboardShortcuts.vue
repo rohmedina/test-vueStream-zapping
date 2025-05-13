@@ -1,10 +1,12 @@
 <script setup>
 import { onMounted, onUnmounted, defineEmits } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import arrow from '@/assets/arrow.svg'
 
 const { t } = useI18n()
-const emit = defineEmits(['channel-up', 'channel-down', 'toggle-channels'])
+const router = useRouter()
+const emit = defineEmits(['channel-up', 'channel-down', 'toggle-channels', 'show-info'])
 
 const props = defineProps({
   currentChannel: {
@@ -17,16 +19,27 @@ const handleChannelAction = (action) => {
   emit(action, props.currentChannel)
 }
 
+const handleShowInfo = () => {
+  if (props.currentChannel?.number) {
+    router.push(`/details/${props.currentChannel.number}`)
+  }
+}
+
 const handleKeyPress = (event) => {
   const keyActions = {
     ArrowUp: 'channel-up',
     ArrowDown: 'channel-down',
     ArrowRight: 'toggle-channels',
+    ArrowLeft: () => handleShowInfo()
   }
 
   const action = keyActions[event.key]
   if (action) {
-    handleChannelAction(action)
+    if (typeof action === 'function') {
+      action()
+    } else {
+      handleChannelAction(action)
+    }
   }
 }
 
@@ -58,7 +71,9 @@ onUnmounted(() => {
         {{ t('ver_canales') }}
       </span>
       <span>
-        <kbd><img :src="arrow" alt="izquierda" class="arrow left" /></kbd>
+        <kbd @click="handleShowInfo">
+          <img :src="arrow" alt="izquierda" class="arrow left" />
+        </kbd>
         {{ t('info_descripcion') }}
       </span>
       <span><kbd>F</kbd> {{ t('pantalla_completa') }}</span>
@@ -112,11 +127,11 @@ onUnmounted(() => {
     }
 
     &.right {
-      transform: rotate(-90deg);
+      transform: rotate(90deg);
     }
 
     &.left {
-      transform: rotate(90deg);
+      transform: rotate(-90deg);
     }
   }
 }

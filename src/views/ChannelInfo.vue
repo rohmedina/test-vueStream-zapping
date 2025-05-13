@@ -1,122 +1,168 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 </script>
 
 <template>
   <div class="movie-info-view">
-    <div class="left-panel">
-      <img class="poster" src="../assets/image.png" alt="Video still or poster" />
-    </div>
-
-    <div class="right-panel">
-      <h1 class="title">Independence Day</h1>
-      <p class="meta">1996 • B • 2h 25min</p>
-
-      <div class="tags">
-        <span class="tag">{{ t('generos.ciencia_ficcion') }}</span>
-        <span class="tag">{{ t('generos.accion') }}</span>
+    <div class="content-wrapper">
+      <div class="left-panel">
+        <div class="content-poster">
+          <img class="poster" src="../assets/image.png" alt="Video still or poster" />
+        </div>
       </div>
 
-      <p class="description">
-        {{ t('descripcion_pelicula') }}
-      </p>
+      <div class="right-panel">
+        <h1 class="title">{{ t('titulo_pelicula') }}</h1>
+        <div class="meta-content">
+          <span class="meta" v-if="locale === 'es'"
+            >{{ t('titulo_original') }}: Independence Day</span
+          >
+          <span class="meta">1996 • B • 2h 25min</span>
+        </div>
 
-      <img src="../assets/brand-logo.svg" alt="logo zapping" />
+        <div class="tags">
+          <span class="tag">{{ t('generos.ciencia_ficcion') }}</span>
+          <span class="tag">{{ t('generos.accion') }}</span>
+        </div>
+
+        <p class="description">
+          {{ t('descripcion_pelicula') }}
+        </p>
+
+        <img class="brand-logo" src="../assets/brand-logo.svg" alt="logo zapping" />
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 .movie-info-view {
-  display: flex;
-  gap: 2rem;
-  padding: 2rem;
-  color: white;
   min-height: 100vh;
-  background-color: #1e1e1e;
-}
-
-.left-panel,
-.right-panel {
-  flex: 1;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.left-panel {
-  border-radius: 1rem;
-  overflow: hidden;
+.movie-info-view::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 910px;
+  height: 512px;
+  background-image: url('../assets/background-movie.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+  z-index: 0;
 }
 
-.poster {
-  max-width: 100%;
+.content-wrapper {
+  display: flex;
+  gap: 4rem;
+  width: 100%;
   border-radius: 1rem;
-  object-fit: cover;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.left-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 60%;
 }
 
 .right-panel {
+  width: 358px;
+  height: 358px;
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  padding: 2rem;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.8), transparent);
+  gap: 1.5rem;
+}
+
+.content-poster {
+  background-color: #000;
   border-radius: 1rem;
+}
+.poster {
+  width: 100%;
+  height: 437px;
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 31px;
   font-weight: bold;
+  margin: 0;
+}
+
+.meta-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .meta {
-  margin: 0.5rem 0;
-  opacity: 0.7;
+  font-size: 14px;
+  opacity: 0.8;
+  margin: 0;
 }
 
 .tags {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1rem 0;
+  gap: 1rem;
 }
 
 .tag {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 0.5rem;
-  padding: 0.2rem 0.7rem;
-  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 12px;
 }
 
 .description {
-  max-width: 400px;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.6;
+  width: 328px;
 }
 
-.brand {
-  margin-top: 2rem;
-  font-weight: bold;
-  opacity: 0.3;
+.brand-logo {
+  width: 108px;
+  margin-top: 0.5rem;
+  opacity: 0.2;
 }
 
-/* Mobile */
 @media (max-width: 768px) {
-  .movie-info-view {
+  .content-wrapper {
     flex-direction: column;
+    gap: 2rem;
     padding: 1rem;
   }
 
+  .left-panel,
   .right-panel {
-    padding: 1.5rem 1rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-    align-items: center;
-    text-align: center;
+    flex: 1; /* En móvil, ambos paneles ocupan el 100% */
   }
 
-  .description {
-    max-width: 100%;
+  .title {
+    font-size: 2rem;
+  }
+
+  .right-panel {
+    text-align: center;
+    align-items: center;
+  }
+
+  .tags {
+    justify-content: center;
   }
 }
 </style>
