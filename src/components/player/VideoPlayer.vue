@@ -33,13 +33,27 @@ const hideTopBar = () => {
   emit('hide-topbar')
 }
 
-const togglePlay = () => {
+const isLoading = ref(false)
+const isFirstPlay = ref(true)
+
+const togglePlay = async () => {
   const video = videoRef.value
   if (!video) return
 
   if (video.paused) {
+    if (isFirstPlay.value) {
+      isLoading.value = true
+      showPoster.value = false
+
+      // Esperar 2 segundos antes de reproducir solo la primera vez
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+      isFirstPlay.value = false
+      isLoading.value = false
+    } else {
+      showPoster.value = false
+    }
+
     video.play()
-    showPoster.value = false
   } else {
     video.pause()
   }
@@ -93,6 +107,10 @@ const videoSrc = computed(() => {
       alt="Poster"
     />
 
+    <div v-if="isLoading" class="loading-overlay">
+      <div class="loader"></div>
+    </div>
+
     <video
       ref="videoRef"
       :src="videoSrc"
@@ -137,10 +155,41 @@ const videoSrc = computed(() => {
   .video-poster {
     position: absolute;
     width: 100%;
-    height: 90%;
+    height: 80%;
     object-fit: cover;
     z-index: 2;
     cursor: pointer;
+  }
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>
