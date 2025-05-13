@@ -16,10 +16,12 @@ const channelDisplay = computed(() => {
 </script>
 
 <template>
-  <header class="top-bar">
-    <button class="menu-btn" @click="$emit('toggle-channels')">☰</button>
+  <header class="top-bar" role="banner">
+    <button class="menu-btn" @click="$emit('toggle-channels')" aria-label="Abrir menú de canales">
+      ☰
+    </button>
 
-    <div class="channel-info">
+    <div class="channel-info" role="status" aria-label="Canal actual">
       <img :src="props.selectedChannel.logo" alt="Logo Canal" class="channel-logo" />
       <span class="channel-name">{{ channelDisplay }}</span>
     </div>

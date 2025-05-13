@@ -123,17 +123,6 @@ onUnmounted(() => {
     margin-right: 1rem;
   }
 
-  kbd {
-    background: #222;
-    padding: 6px 8px;
-    border-radius: 4px;
-    font-weight: 600;
-    font-size: 10px;
-    color: white;
-    border: 1px solid #444;
-    margin: 2px;
-  }
-
   .arrow {
     &.up {
       transform: rotate(0deg);

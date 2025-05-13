@@ -33,15 +33,54 @@ const handleLanguageChange = (lang) => {
 </script>
 
 <template>
-  <div class="language-selector" ref="languageSelector" @click="toggleDropdown">
-    <button class="lang-btn">
-      <span>{{ getCurrentFlag() }}</span>
-      {{ currentLanguage.toUpperCase() }}
-      <img :src="dropdownOpen ? arrowUp : arrowDown" alt="Arrow" />
+  <div 
+    class="language-selector" 
+    ref="languageSelector"
+    role="navigation"
+    aria-label="Selector de idioma"
+  >
+    <button 
+      class="lang-btn"
+      @click="toggleDropdown"
+      aria-expanded="dropdownOpen"
+      aria-haspopup="listbox"
+      aria-controls="language-list"
+    >
+      <span aria-hidden="true">{{ getCurrentFlag() }}</span>
+      <span>{{ currentLanguage.toUpperCase() }}</span>
+      <img 
+        :src="dropdownOpen ? arrowUp : arrowDown" 
+        :alt="dropdownOpen ? 'Cerrar menú' : 'Abrir menú'"
+        aria-hidden="true"
+      />
     </button>
-    <ul v-if="dropdownOpen" class="lang-dropdown">
-      <li @click="handleLanguageChange('es')">🇪🇸 Español</li>
-      <li @click="handleLanguageChange('pt')">🇧🇷 Português</li>
+
+    <ul 
+      v-if="dropdownOpen" 
+      class="lang-dropdown"
+      role="listbox"
+      id="language-list"
+      aria-label="Idiomas disponibles"
+      tabindex="-1"
+    >
+      <li 
+        role="option"
+        @click="handleLanguageChange('es')"
+        :aria-selected="currentLanguage === 'es'"
+        tabindex="0"
+        @keyup.enter="handleLanguageChange('es')"
+      >
+        <span aria-hidden="true">🇪🇸</span> Español
+      </li>
+      <li 
+        role="option"
+        @click="handleLanguageChange('pt')"
+        :aria-selected="currentLanguage === 'pt'"
+        tabindex="0"
+        @keyup.enter="handleLanguageChange('pt')"
+      >
+        <span aria-hidden="true">🇧🇷</span> Português
+      </li>
     </ul>
   </div>
 </template>
@@ -59,6 +98,10 @@ const handleLanguageChange = (lang) => {
     cursor: pointer;
     transition: background-color 0.3s ease;
     border: none;
+    &:focus-visible {
+      outline: 2px solid white;
+      outline-offset: 2px;
+    }
   }
 
   &:has(.lang-dropdown) .lang-btn {
@@ -91,6 +134,11 @@ const handleLanguageChange = (lang) => {
       cursor: pointer;
       box-sizing: border-box;
       &:hover {
+        background: #444;
+      }
+      &:focus-visible {
+        outline: 2px solid white;
+        outline-offset: -2px;
         background: #444;
       }
     }

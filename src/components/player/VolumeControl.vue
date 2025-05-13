@@ -1,25 +1,3 @@
-<template>
-  <div class="volume-control">
-    <button @click="toggleMute" class="circle-btn">
-      <img :src="speakerHigh" alt="volumen" />
-    </button>
-
-    <input
-      type="range"
-      min="0"
-      max="1"
-      step="0.01"
-      v-model="volume"
-      class="volume-bar"
-      @input="handleVolumeChange"
-      :style="{ '--value': volume }"
-      @mousedown="startVolumeChange"
-      @mouseup="endVolumeChange"
-      @mouseleave="endVolumeChange"
-    />
-  </div>
-</template>
-
 <script setup>
 import { ref } from 'vue'
 import speakerHigh from '@/assets/speakerHigh.svg'
@@ -55,6 +33,32 @@ const toggleMute = () => {
   emit('volume-change', volume.value)
 }
 </script>
+
+<template>
+  <div class="volume-control">
+    <button @click="toggleMute" class="circle-btn" aria-label="Silenciar o activar sonido">
+      <img :src="speakerHigh" alt="" aria-hidden="true" />
+    </button>
+
+    <input
+      type="range"
+      min="0"
+      max="1"
+      step="0.01"
+      v-model="volume"
+      class="volume-bar"
+      @input="handleVolumeChange"
+      :style="{ '--value': volume }"
+      @mousedown="startVolumeChange"
+      @mouseup="endVolumeChange"
+      @mouseleave="endVolumeChange"
+      aria-label="Control de volumen"
+      :aria-valuenow="volume"
+      :aria-valuemin="0"
+      :aria-valuemax="1"
+    />
+  </div>
+</template>
 
 <style scoped lang="scss">
 .volume-control {

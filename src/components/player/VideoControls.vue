@@ -24,10 +24,14 @@ defineProps({
 </script>
 
 <template>
-  <div class="video-controls">
+  <div class="video-controls" role="toolbar" aria-label="Controles de video">
     <div class="main-buttons">
-      <button @click="$emit('togglePlay')" class="circle-btn">
-        <img :src="play" alt="play" />
+      <button 
+        @click="$emit('togglePlay')" 
+        class="circle-btn"
+        aria-label="Reproducir o pausar video"
+      >
+        <img :src="play" alt="" aria-hidden="true" />
       </button>
 
       <VolumeControl @volume-change="(volume) => $emit('volumeChange', volume)" />
@@ -42,8 +46,12 @@ defineProps({
       @toggle-fullscreen="() => emit('toggle-fullscreen')"
     />
 
-    <button class="menu-button" @click="$emit('show-info', currentChannel?.id)">
-      <img :src="detail" alt="resumen" />
+    <button 
+      class="menu-button" 
+      @click="$emit('show-info', currentChannel?.id)"
+      aria-label="Mostrar información del canal"
+    >
+      <img :src="detail" alt="" aria-hidden="true" />
     </button>
   </div>
 </template>
@@ -55,7 +63,7 @@ defineProps({
   justify-content: space-between;
   background-color: #000;
   color: white;
-  padding: 1rem 1rem 3rem 1rem;
+  padding: 1rem;
 
   .main-buttons {
     display: flex;

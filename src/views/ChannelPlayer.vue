@@ -40,21 +40,25 @@ const handleChannelSelection = (channel) => {
       v-show="!showChannels"
       @toggle-channels="showChannels = !showChannels"
       :selected-channel="selectedChannel"
-      :class="{ 'show-topbar': isTopBarVisible && !showChannels }"
+      :class="{
+        'show-topbar': isTopBarVisible && !showChannels,
+        'mobile-topbar': isMobile,
+      }"
     />
 
     <div class="background-container"></div>
 
-    <transition name="fade">
+    <transition :name="isMobile ? 'slide' : 'fade'" mode="out-in">
       <ChannelList
         v-if="showChannels"
         @channel-selected="handleChannelSelection"
         :current-channel="selectedChannel"
         :channels="channels"
+        :class="{ 'mobile-list': isMobile }"
       />
     </transition>
 
-    <main class="main-content" v-show="!showChannels">
+    <main class="main-content" v-show="!showChannels" :class="{ 'mobile-content': isMobile }">
       <VideoPlayer
         :current-channel="selectedChannel"
         :is-channel-list-visible="showChannels"
@@ -73,7 +77,6 @@ const handleChannelSelection = (channel) => {
   color: white;
   height: 100vh;
   width: 100vw;
-  font-family: Arial, Helvetica, sans-serif;
   overflow: hidden;
   position: relative;
   display: flex;
@@ -86,10 +89,8 @@ const handleChannelSelection = (channel) => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('@/assets/image.png');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
   z-index: 0;
 }
 
@@ -97,25 +98,60 @@ const handleChannelSelection = (channel) => {
   position: relative;
   flex: 1;
   width: 100%;
-  height: calc(100vh - 200px);
-  padding: 0;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+  height: calc(100vh - var(--topbar-height, 80px));
   z-index: 1;
   overflow: hidden;
+
+  &.mobile-content {
+    height: 100vh;
+  }
 }
 
+// Transiciones
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s;
+  transition: opacity 0.3s ease;
 }
+
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
 }
 
-.show-topbar {
-  transform: translateY(0) !important;
+// Transición para móvil
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s ease;
+}
+
+.slide-enter-from {
+  transform: translateX(100%);
+}
+
+.slide-leave-to {
+  transform: translateX(-100%);
+}
+
+// Estilos móviles
+@media (max-width: 768px) {
+  .mobile-topbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .mobile-list {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 20;
+  }
+
+  .show-topbar {
+    transform: translateY(0);
+  }
 }
 </style>

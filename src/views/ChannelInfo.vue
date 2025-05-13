@@ -26,8 +26,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="movie-info-view">
-    <span class="exit-button" @click="handleExit"><kbd>[ESC]</kbd>{{ t('salir') }}</span>
+  <div class="movie-info-view" role="main">
+    <span class="exit-button" @click="handleExit" aria-label="Volver al reproductor"
+      ><kbd>[ESC]</kbd>{{ t('salir') }}</span
+    >
     <div class="content-wrapper">
       <div class="left-panel">
         <div class="content-poster">
@@ -62,12 +64,13 @@ onUnmounted(() => {
 <style scoped>
 .movie-info-view {
   min-height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9);
   color: white;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(90deg, rgba(32, 32, 34, 1) 100%, rgba(0, 0, 0, 0) 0%);
+  z-index: 0;
 }
 
 .movie-info-view::before {
@@ -162,20 +165,31 @@ onUnmounted(() => {
   opacity: 0.2;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 820px) {
   .content-wrapper {
     flex-direction: column;
     gap: 2rem;
     padding: 1rem;
+    align-items: center;
   }
 
   .left-panel,
   .right-panel {
-    flex: 1; /* En móvil, ambos paneles ocupan el 100% */
+    flex: 1;
+  }
+
+  .left-panel {
+    width: 100%;
+    height: auto;
+  }
+
+  .poster {
+    width: 100%;
+    height: auto;
   }
 
   .title {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .right-panel {
@@ -185,6 +199,12 @@ onUnmounted(() => {
 
   .tags {
     justify-content: center;
+  }
+
+  .movie-info-view::before {
+    width: 400px;
+    height: 200px;
+    border-radius: 0;
   }
 }
 

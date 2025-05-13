@@ -46,13 +46,17 @@ const selectChannel = (channel) => {
 </script>
 
 <template>
-  <div class="channel-list">
-    <ul ref="channelListRef">
+  <div class="channel-list" role="dialog" aria-label="Lista de canales">
+    <ul role="listbox" aria-label="Canales disponibles">
       <li
         v-for="channel in channels"
         :key="channel.id"
         :class="{ active: props.currentChannel?.id === channel.id }"
         @click="selectChannel(channel)"
+        role="option"
+        :aria-selected="props.currentChannel?.id === channel.id"
+        tabindex="0"
+        @keyup.enter="selectChannel(channel)"
       >
         <span>{{ channel.number }}</span>
         <img :src="channel.logo" :alt="channel.name" />
