@@ -45,7 +45,6 @@ const togglePlay = async () => {
       isLoading.value = true
       showPoster.value = false
 
-      // Esperar 2 segundos antes de reproducir solo la primera vez
       await new Promise((resolve) => setTimeout(resolve, 2000))
       isFirstPlay.value = false
       isLoading.value = false
@@ -204,7 +203,7 @@ const videoSrc = computed(() => {
   left: 0;
   width: 100%;
   z-index: 10;
-  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
   padding-bottom: 20px;
 }
 

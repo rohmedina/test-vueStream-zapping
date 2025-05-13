@@ -107,7 +107,6 @@ const handleChannelSelection = (channel) => {
   }
 }
 
-// Transiciones
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;
@@ -118,7 +117,6 @@ const handleChannelSelection = (channel) => {
   opacity: 0;
 }
 
-// Transición para móvil
 .slide-enter-active,
 .slide-leave-active {
   transition: transform 0.3s ease;
@@ -132,7 +130,6 @@ const handleChannelSelection = (channel) => {
   transform: translateX(-100%);
 }
 
-// Estilos móviles
 @media (max-width: 768px) {
   .mobile-topbar {
     position: fixed;

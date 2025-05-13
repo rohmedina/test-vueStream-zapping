@@ -12,12 +12,12 @@ export function useChannelManagement(initialChannel) {
 
   const handleChannelSelect = (channel) => {
     if (channel === null) {
-      return false // Indica que solo se debe cerrar la lista
+      return false
     }
     selectedChannel.value = channel
     currentChannelIndex.value = channels.value.findIndex((c) => c.id === channel.id)
     saveSelectedChannel(channel)
-    return true // Indica que se seleccionó un nuevo canal
+    return true
   }
 
   const handleChannelChange = (direction) => {

@@ -2,7 +2,6 @@ import { mockChannels } from './mocks/channel-mock'
 
 class ChannelServices {
   constructor() {
-    // En desarrollo usamos el proxy, en producción la URL completa
     this.baseUrl = import.meta.env.DEV ? '/api' : 'https://dev-alquinta.zappingtv.com/v1/web'
   }
 
@@ -12,8 +11,8 @@ class ChannelServices {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
+          Accept: 'application/json',
+        },
       })
 
       console.log('Response:', response)
@@ -40,7 +39,7 @@ class ChannelServices {
         logo: channel.logo_color?.trim(),
         logoWhite: channel.logo_white?.trim(),
       }))
-      .sort((a, b) => a.number - b.number);
+      .sort((a, b) => a.number - b.number)
   }
 }
 
