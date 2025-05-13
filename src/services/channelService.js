@@ -32,13 +32,15 @@ class ChannelServices {
   }
 
   formatChannelData(channels) {
-    return channels.map((channel) => ({
-      id: channel.number,
-      name: channel.name,
-      number: channel.number,
-      logo: channel.logo_color?.trim(),
-      logoWhite: channel.logo_white?.trim(),
-    }))
+    return channels
+      .map((channel) => ({
+        id: channel.number,
+        name: channel.name,
+        number: channel.number,
+        logo: channel.logo_color?.trim(),
+        logoWhite: channel.logo_white?.trim(),
+      }))
+      .sort((a, b) => a.number - b.number);
   }
 }
 

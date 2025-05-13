@@ -121,7 +121,7 @@ const selectChannel = (channel) => {
 
     &.active {
       background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid #fff;
     }
 
     &:hover {
