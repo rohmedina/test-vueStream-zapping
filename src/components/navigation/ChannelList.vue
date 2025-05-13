@@ -19,10 +19,17 @@ const handleClickOutside = (event) => {
   }
 }
 
+const handleKeyPress = (event) => {
+  if (event.key === 'Escape') {
+    emit('channel-selected', props.currentChannel)
+  }
+}
+
 onMounted(async () => {
   try {
     channels.value = await channelService.getChannels()
     document.addEventListener('click', handleClickOutside)
+    document.addEventListener('keydown', handleKeyPress)
   } catch (error) {
     console.error('Error al obtener los canales:', error)
   }
@@ -30,6 +37,7 @@ onMounted(async () => {
 
 onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
+  document.removeEventListener('keydown', handleKeyPress)
 })
 
 const selectChannel = (channel) => {
@@ -80,7 +88,7 @@ const selectChannel = (channel) => {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    width: 400px; /* Ancho fijo para la lista */
+    width: 400px;
   }
 
   li {

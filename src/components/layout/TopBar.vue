@@ -44,6 +44,7 @@ const channelDisplay = computed(() => {
   left: 0;
   right: 0;
   z-index: 1000;
+  height: 100px;
 
   .menu-btn {
     background: none;

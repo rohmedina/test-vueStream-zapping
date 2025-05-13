@@ -12,6 +12,7 @@ const emit = defineEmits([
   'channel-down',
   'toggle-channels',
   'show-info',
+  'toggle-fullscreen',
 ])
 
 defineProps({
@@ -37,6 +38,8 @@ defineProps({
       @channel-up="(channel) => emit('channel-up', channel)"
       @channel-down="(channel) => emit('channel-down', channel)"
       @toggle-channels="(channel) => emit('toggle-channels', channel)"
+      @toggle-mute="() => emit('toggleMute')"
+      @toggle-fullscreen="() => emit('toggle-fullscreen')"
     />
 
     <button class="menu-button" @click="$emit('show-info', currentChannel?.id)">

@@ -67,6 +67,17 @@ const handleChannelDown = () => {
   emit('change-channel', 'down')
 }
 
+const toggleFullscreen = () => {
+  const video = videoRef.value
+  if (!video) return
+
+  if (!document.fullscreenElement) {
+    video.requestFullscreen()
+  } else {
+    document.exitFullscreen()
+  }
+}
+
 const videoSrc = computed(() => {
   return independenceDay
 })
@@ -101,6 +112,7 @@ const videoSrc = computed(() => {
       @channel-down="handleChannelDown"
       @toggle-channels="() => emit('toggle-channels')"
       @show-info="() => $router.push(`/details/${currentChannel.id}`)"
+      @toggle-fullscreen="toggleFullscreen"
     />
   </div>
 </template>
@@ -116,7 +128,7 @@ const videoSrc = computed(() => {
 
   .video-element {
     width: 100%;
-    height: 100%;
+    height: 80%;
     object-fit: cover;
     display: block;
     background: transparent;

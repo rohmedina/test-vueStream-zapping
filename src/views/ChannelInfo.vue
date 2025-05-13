@@ -1,11 +1,33 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+import { onMounted, onUnmounted } from 'vue'
 
 const { t, locale } = useI18n()
+const router = useRouter()
+
+const handleExit = () => {
+  router.back()
+}
+
+const handleKeyPress = (event) => {
+  if (event.key === 'Escape') {
+    handleExit()
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeyPress)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyPress)
+})
 </script>
 
 <template>
   <div class="movie-info-view">
+    <span class="exit-button" @click="handleExit"><kbd>[ESC]</kbd>{{ t('salir') }}</span>
     <div class="content-wrapper">
       <div class="left-panel">
         <div class="content-poster">
@@ -164,5 +186,27 @@ const { t, locale } = useI18n()
   .tags {
     justify-content: center;
   }
+}
+
+.exit-button {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 12px;
+  color: #444;
+}
+
+.exit-button kbd {
+  background: #222;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 10px;
+  color: white;
+  border: 1px solid #444;
 }
 </style>

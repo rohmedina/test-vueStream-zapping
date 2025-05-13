@@ -6,7 +6,14 @@ import arrow from '@/assets/arrow.svg'
 
 const { t } = useI18n()
 const router = useRouter()
-const emit = defineEmits(['channel-up', 'channel-down', 'toggle-channels', 'show-info'])
+const emit = defineEmits([
+  'channel-up',
+  'channel-down',
+  'toggle-channels',
+  'show-info',
+  'toggle-mute',
+  'toggle-fullscreen',
+])
 
 const props = defineProps({
   currentChannel: {
@@ -30,7 +37,12 @@ const handleKeyPress = (event) => {
     ArrowUp: 'channel-up',
     ArrowDown: 'channel-down',
     ArrowRight: 'toggle-channels',
-    ArrowLeft: () => handleShowInfo()
+    ArrowLeft: () => handleShowInfo(),
+    m: 'toggle-mute',
+    M: 'toggle-mute',
+    f: 'toggle-fullscreen',
+    F: 'toggle-fullscreen',
+    Escape: '!toggle-fullscreen',
   }
 
   const action = keyActions[event.key]
@@ -76,11 +88,16 @@ onUnmounted(() => {
         </kbd>
         {{ t('info_descripcion') }}
       </span>
-      <span><kbd>F</kbd> {{ t('pantalla_completa') }}</span>
-      <span><kbd>M</kbd> {{ t('silento') }}</span>
+      <span
+        ><kbd @click="handleChannelAction('toggle-fullscreen')">F</kbd>
+        {{ t('pantalla_completa') }}</span
+      >
+      <span><kbd @click="handleChannelAction('toggle-mute')">M</kbd> {{ t('silento') }}</span>
     </div>
     <div class="right-shortcuts">
-      <span><kbd>[ESC]</kbd>{{ t('salir') }}</span>
+      <span
+        ><kbd @click="handleChannelAction('!toggle-fullscreen')">[ESC]</kbd>{{ t('salir') }}</span
+      >
     </div>
   </div>
 </template>
